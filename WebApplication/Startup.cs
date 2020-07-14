@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Repository;
+using WebApplication.Configurations;
 
 namespace WebApplication
 {
@@ -32,6 +33,10 @@ namespace WebApplication
                     .UseLazyLoadingProxies()
                     .UseNpgsql(Configuration.GetConnectionString("Default"));
             });
+            
+var signingConfigurations = new SigningConfigurations();
+services.AddSingleton(signingConfigurations);
+            
             services.AddControllers();
         }
 
