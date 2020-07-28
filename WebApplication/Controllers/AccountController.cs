@@ -15,18 +15,18 @@ namespace WebApplication.Controllers
     [Route("conta")]
     public class AccountController : Controller
     {
-private readonly UserManager<User> _userManager;
-private readonly SignInManager<User> _signManager;
-private readonly TokenConfigurations _tokenConfigurations;
-private readonly SigningConfigurations _signingConfigurations;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signManager;
+        private readonly TokenConfigurations _tokenConfigurations;
+        private readonly SigningConfigurations _signingConfigurations;
 
-public AccountController(UserManager<User> userManager, SignInManager<User> signManager, TokenConfigurations tokenConfigurations, SigningConfigurations signingConfigurations)
-{
-    _userManager = userManager;
-    _signManager = signManager;
-    _tokenConfigurations = tokenConfigurations;
-    _signingConfigurations = signingConfigurations;
-}
+        public AccountController(UserManager<User> userManager, SignInManager<User> signManager, TokenConfigurations tokenConfigurations, SigningConfigurations signingConfigurations)
+        {
+            _userManager = userManager;
+            _signManager = signManager;
+            _tokenConfigurations = tokenConfigurations;
+            _signingConfigurations = signingConfigurations;
+        }
 
         [HttpPost("entrar")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel viewModel)
@@ -87,6 +87,12 @@ public AccountController(UserManager<User> userManager, SignInManager<User> sign
                 //Retorna a mensagem de erro para o usuário
                 return BadRequest(new {Message = "Usuário/Senha não estão coincidem."});
             }
+        }
+
+        [HttpPost("cadastro")]
+        public async Task<IActionResult> CreateAccount([FromBody] CreateAccountViewModel viewModel)
+        {
+            return Ok();
         }
     }
 }
