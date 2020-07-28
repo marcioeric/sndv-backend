@@ -92,7 +92,23 @@ namespace WebApplication.Controllers
         [HttpPost("cadastro")]
         public async Task<IActionResult> CreateAccount([FromBody] CreateAccountViewModel viewModel)
         {
-            return Ok();
+            var user = new User
+            {
+                Email = viewModel.Email,
+                UserName = viewModel.Email,
+                IsEnabled = true,
+                Name = viewModel.Name,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(user, viewModel.Password);
+
+            if(result.Succeeded)
+                //Caso o cadastro da conta tenha sido um sucesso, retornamos para ele 200
+                return Ok("Conta cadastrada com êxito");
+            else
+                //Caso contrário, retornamos 400 e os erros!
+                return BadRequest(result.Errors);
         }
     }
 }
